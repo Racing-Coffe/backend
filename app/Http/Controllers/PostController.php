@@ -20,5 +20,12 @@ class PostController extends Controller
 
     public function show(Request $Request)
     {
+        $HiddenValues = ['id'];
+
+        $Post = Post::find($Request->id)->makeHidden($HiddenValues);
+
+        $PostArray = $Post->toArray();
+
+        return $PostArray;
     }
 }
