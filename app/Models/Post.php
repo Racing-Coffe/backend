@@ -15,4 +15,13 @@ class Post extends Model
         'category_id',
         'author_id'
     ];
+
+    protected $hidden = [
+        'password'
+    ];  
+
+    public function author()
+    {
+        return $this->belongsTo(Author::class);
+    }
 }
