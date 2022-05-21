@@ -35,7 +35,19 @@ class TagController extends MainController
 
     public function showPosts(Request $Request)
     {
-        return "show Posts";
+        if (!$this->ValidateId($Request)) return $this->NotFound();
+
+        $Tag = Tag::find($Request->id);
+
+        if (!$Tag) return $this->NotFound();
+
+        $Posts = $Tag->posts()->getResults();
+
+        $HiddenValues = ['content', 'tag_id', 'author_id', 'created_at', 'updated_at'];
+
+        $PostsArray = $Posts->makeHidden($HiddenValues)->toArray();
+
+        return $PostsArray;
     }
 
     protected function NotFound()
