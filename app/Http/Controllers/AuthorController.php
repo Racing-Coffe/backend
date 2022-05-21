@@ -20,6 +20,12 @@ class AuthorController extends Controller
 
     public function show(Request $Request)
     {
-        return "show";
+        $HiddenValues = ['id', 'email'];
+
+        $Author = Author::find($Request->id)->makeHidden($HiddenValues);
+
+        $AuthorArray = $Author->toArray();
+
+        return $AuthorArray;
     }
 }
