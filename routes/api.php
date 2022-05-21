@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\TagController;
 use App\Http\Controllers\AuthorController;
 use App\Http\Controllers\PostController;
 use Illuminate\Support\Facades\Route;
@@ -21,3 +22,7 @@ Route::get('posts/{id}', [PostController::class, 'show']);
 Route::get('authors', [AuthorController::class, 'index']);
 Route::get('authors/{id}', [AuthorController::class, 'show']);
 Route::get('authors/{id}/posts', [AuthorController::class, 'showPosts']);
+
+Route::get('tags', [TagController::class, 'index']);
+Route::get('tags/{id}', [TagController::class, 'show']);
+Route::get('tags/{id}/posts', [TagController::class, 'showPosts']);
