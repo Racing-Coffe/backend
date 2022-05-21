@@ -20,7 +20,17 @@ class TagController extends MainController
 
     public function show(Request $Request)
     {
-        return "show";
+        if (!$this->ValidateId($Request)) return $this->NotFound();
+
+        $Tag = Tag::find($Request->id);
+
+        if (!$Tag) return $this->NotFound();
+
+        $HiddenValues = ['id'];
+
+        $TagArray = $Tag->makeHidden($HiddenValues)->toArray();
+
+        return $TagArray;
     }
 
     public function showPosts(Request $Request)
