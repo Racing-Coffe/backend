@@ -16,10 +16,6 @@ class Post extends Model
         'author_id'
     ];
 
-    protected $hidden = [
-        'password'
-    ];  
-
     public function author()
     {
         return $this->belongsTo(Author::class);
