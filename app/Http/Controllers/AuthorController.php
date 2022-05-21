@@ -22,9 +22,11 @@ class AuthorController extends Controller
     {
         $HiddenValues = ['id', 'email'];
 
-        $Author = Author::find($Request->id)->makeHidden($HiddenValues);
+        $Author = Author::find($Request->id);
+        
+        if (!$Author) return response(['Error' => 'Author not found'], 404);
 
-        $AuthorArray = $Author->toArray();
+        $AuthorArray = $Author->makeHidden($HiddenValues)->toArray();
 
         return $AuthorArray;
     }
