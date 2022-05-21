@@ -15,10 +15,13 @@ return new class extends Migration
     {
         Schema::create('posts', function (Blueprint $table) {
             $table->id();
-            $table->string('title');
             $table->text('content');
+            $table->string('title');
             $table->integer('category_id');
-            $table->integer('author_id');
+
+            $table->bigInteger('author_id');
+            $table->foreign('author_id')->references('id')->on('authors');
+
             $table->timestamps();
         });
     }

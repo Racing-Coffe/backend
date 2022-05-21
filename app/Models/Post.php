@@ -15,4 +15,9 @@ class Post extends Model
         'category_id',
         'author_id'
     ];
+
+    public function author()
+    {
+        return $this->belongsTo(Author::class);
+    }
 }
