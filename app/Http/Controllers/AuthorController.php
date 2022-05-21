@@ -9,7 +9,13 @@ class AuthorController extends Controller
 {
     public function index(Request $Request)
     {
-        return "index";
+        $HiddenValues = ['email', 'avatar', 'twitter', 'created_at', 'updated_at'];
+
+        $Authors = Author::all()->makeHidden($HiddenValues);
+
+        $AuthorsArray = $Authors->toArray();
+
+        return $AuthorsArray;
     }
 
     public function show(Request $Request)
