@@ -35,13 +35,15 @@ class AuthorController extends MainController
 
     public function showPosts(Request $Request)
     {
-        $HiddenValues = ['content', 'category_id', 'author_id', 'created_at', 'updated_at'];
+        if (!$this->ValidateId($Request)) return $this->NotFound();
 
         $Author = Author::find($Request->id);
 
-        if (!$Author) return response(['Error' => 'Author not found'], 404);
+        if (!$Author) return $this->NotFound();
 
         $Posts = $Author->posts()->getResults();
+        
+        $HiddenValues = ['content', 'category_id', 'author_id', 'created_at', 'updated_at'];
 
         $PostsArray = $Posts->makeHidden($HiddenValues)->toArray();
 
