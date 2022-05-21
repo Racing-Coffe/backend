@@ -22,9 +22,11 @@ class PostController extends Controller
     {
         $HiddenValues = ['id'];
 
-        $Post = Post::find($Request->id)->makeHidden($HiddenValues);
+        $Post = Post::find($Request->id);
 
-        $PostArray = $Post->toArray();
+        if(!$Post) return response(['Error' => 'Post not found'], 404);
+
+        $PostArray = $Post->makeHidden($HiddenValues)->toArray();
 
         return $PostArray;
     }
