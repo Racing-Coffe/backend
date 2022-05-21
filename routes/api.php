@@ -20,3 +20,4 @@ Route::get('posts/{id}', [PostController::class, 'show']);
 
 Route::get('authors', [AuthorController::class, 'index']);
 Route::get('authors/{id}', [AuthorController::class, 'show']);
+Route::get('authors/{id}/posts', [AuthorController::class, 'showPosts']);

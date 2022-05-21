@@ -28,4 +28,18 @@ class AuthorController extends Controller
 
         return $AuthorArray;
     }
+
+    public function showPosts(Request $Request)
+    {
+        $HiddenValues = ['content', 'category_id', 'author_id', 'created_at', 'updated_at'];
+
+        $Posts = Author::find($Request->id)
+            ->posts()
+            ->getResults()
+            ->makeHidden($HiddenValues);
+
+        $PostsArray = $Posts->toArray();
+
+        return $PostsArray;
+    }
 }
