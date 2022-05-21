@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Author;
 use Illuminate\Http\Request;
 
-class AuthorController extends Controller
+class AuthorController extends MainController
 {
     public function index(Request $Request)
     {
@@ -20,11 +20,13 @@ class AuthorController extends Controller
 
     public function show(Request $Request)
     {
-        $HiddenValues = ['id', 'email'];
+        if (!$this->ValidateId($Request)) return $this->NotFound();
 
         $Author = Author::find($Request->id);
-        
-        if (!$Author) return response(['Error' => 'Author not found'], 404);
+
+        if (!$Author) return $this->NotFound();
+
+        $HiddenValues = ['id', 'email'];
 
         $AuthorArray = $Author->makeHidden($HiddenValues)->toArray();
 
@@ -44,5 +46,10 @@ class AuthorController extends Controller
         $PostsArray = $Posts->makeHidden($HiddenValues)->toArray();
 
         return $PostsArray;
+    }
+
+    protected function NotFound()
+    {
+        return response(['Error' => 'Author not found'], 404);
     }
 }
