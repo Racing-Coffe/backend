@@ -13,7 +13,7 @@ abstract class MainController extends Controller
         $Validation = ['id' => 'required|integer'];
         $Validator = Validator::make($Request->all(), $Validation);
 
-        return $Validator->fails();
+        return ! $Validator->fails();
     }
 
     protected abstract function NotFound();

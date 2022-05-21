@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Post;
 use Illuminate\Http\Request;
 
-class PostController extends Controller
+class PostController extends MainController
 {
     public function index(Request $Request)
     {
@@ -20,14 +20,21 @@ class PostController extends Controller
 
     public function show(Request $Request)
     {
-        $HiddenValues = ['id'];
+        if (!$this->ValidateId($Request)) return $this->NotFound();
 
         $Post = Post::find($Request->id);
 
-        if(!$Post) return response(['Error' => 'Post not found'], 404);
+        if (!$Post) return $this->NotFound();
+
+        $HiddenValues = ['id'];
 
         $PostArray = $Post->makeHidden($HiddenValues)->toArray();
 
         return $PostArray;
+    }
+
+    protected function NotFound()
+    {
+        return response(['Error' => 'Post not found'], 404);
     }
 }
