@@ -43,7 +43,7 @@ class AuthorController extends MainController
 
         $Posts = $Author->posts()->getResults();
         
-        $HiddenValues = ['content', 'category_id', 'author_id', 'created_at', 'updated_at'];
+        $HiddenValues = ['content', 'tag_id', 'author_id', 'created_at', 'updated_at'];
 
         $PostsArray = $Posts->makeHidden($HiddenValues)->toArray();
 

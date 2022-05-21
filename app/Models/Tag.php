@@ -5,21 +5,13 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Author extends Model
+class Tag extends Model
 {
     use HasFactory;
 
     protected $fillable = [
-        'name',
-        'email',
-        'password',
-        'avatar',
-        'twitter',
+        'title',
         'description'
-    ];
-
-    protected $hidden = [
-        'password'
     ];
 
     public function posts()
