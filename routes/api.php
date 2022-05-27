@@ -16,8 +16,9 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('posts', [PostController::class, 'index']);
-Route::get('posts/{id}', [PostController::class, 'show']);
+Route::controller(PostController::class)->group(function () {
+    Route::get('posts', 'index')->name('post.index');
+    Route::get('posts/{id}', 'show')->name('post.show');
 
 Route::get('authors', [AuthorController::class, 'index']);
 Route::get('authors/{id}', [AuthorController::class, 'show']);
