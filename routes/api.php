@@ -16,13 +16,21 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('posts', [PostController::class, 'index']);
-Route::get('posts/{id}', [PostController::class, 'show']);
+Route::controller(PostController::class)->group(function () {
+    Route::get('posts', 'index')->name('post.index');
+    Route::get('posts/{id}', 'show')->name('post.show');
 
-Route::get('authors', [AuthorController::class, 'index']);
-Route::get('authors/{id}', [AuthorController::class, 'show']);
-Route::get('authors/{id}/posts', [AuthorController::class, 'showPosts']);
+});
 
-Route::get('tags', [TagController::class, 'index']);
-Route::get('tags/{id}', [TagController::class, 'show']);
-Route::get('tags/{id}/posts', [TagController::class, 'showPosts']);
+Route::controller(AuthorController::class)->group(function () {
+    Route::get('authors', 'index')->name('author.index');
+    Route::get('authors/{id}', 'show')->name('author.show');
+    Route::get('authors/{id}/posts', 'showPosts')->name('author.showPosts');
+});
+
+
+Route::controller(TagController::class)->group(function () {
+    Route::get('tags', 'index')->name('tag.index');
+    Route::get('tags/{id}', 'show')->name('tag.show');
+    Route::get('tags/{id}/posts', 'showPosts')->name('tag.showPosts');
+});
