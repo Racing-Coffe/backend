@@ -28,6 +28,9 @@ Route::controller(AuthorController::class)->group(function () {
     Route::get('authors/{id}/posts', 'showPosts')->name('author.showPosts');
 });
 
-Route::get('tags', [TagController::class, 'index']);
-Route::get('tags/{id}', [TagController::class, 'show']);
-Route::get('tags/{id}/posts', [TagController::class, 'showPosts']);
+
+Route::controller(TagController::class)->group(function () {
+    Route::get('tags', 'index')->name('tag.index');
+    Route::get('tags/{id}', 'show')->name('tag.show');
+    Route::get('tags/{id}/posts', 'showPosts')->name('tag.showPosts');
+});
