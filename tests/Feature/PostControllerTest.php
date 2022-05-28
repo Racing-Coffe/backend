@@ -42,4 +42,26 @@ class PostControllerTest extends TestCase
 
         $response->assertJsonCount(3);
     }
+
+    /**
+     * Test the Show Route of Post Controller.
+     *
+     * @return void
+     */
+    public function test_show_route()
+    {
+        $response = $this->get('/api/posts/1');
+
+        $response->assertJson(
+            function (AssertableJson $json) {
+                $json->hasAll(['content', 'title', 'tag_id', 'author_id', 'created_at', 'updated_at']);
+                $json->missingAll(['id', 'password']);
+            }
+        );
+
+        $response->assertStatus(200);
+        $response->assertSuccessful();
+        
+        $response->assertJsonCount(6);
+    }
 }
