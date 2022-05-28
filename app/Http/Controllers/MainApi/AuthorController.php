@@ -8,6 +8,8 @@ use Illuminate\Http\Request;
 
 class AuthorController extends MainApiController
 {
+    use ShowPosts;
+
     protected function HiddenValues(): object
     {
         return (object) [
@@ -24,22 +26,5 @@ class AuthorController extends MainApiController
     protected function NotFound()
     {
         return response(['Error' => 'Author not found'], 404);
-    }
-
-    public function showPosts(Request $Request)
-    {
-        if (!$this->ValidateId($Request)) return $this->NotFound();
-        if (!$this->FindId($Request->id)) return $this->NotFound();
-
-        $Posts = $this
-            ->FindId($Request->id)
-            ->posts()
-            ->getResults();
-
-        $HiddenValues = ['content', 'tag_id', 'author_id', 'created_at', 'updated_at'];
-
-        $PostsArray = $Posts->makeHidden($HiddenValues)->toArray();
-
-        return $PostsArray;
     }
 }
