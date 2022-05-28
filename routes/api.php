@@ -1,8 +1,8 @@
 <?php
 
-use App\Http\Controllers\TagController;
-use App\Http\Controllers\AuthorController;
-use App\Http\Controllers\PostController;
+use App\Http\Controllers\MainApi\TagController;
+use App\Http\Controllers\MainApi\AuthorController;
+use App\Http\Controllers\MainApi\PostController;
 use Illuminate\Support\Facades\Route;
 
 /*
