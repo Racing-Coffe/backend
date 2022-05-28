@@ -1,0 +1,28 @@
+on: push
+name: CI
+jobs:
+  phpunit:
+    runs-on: ubuntu-latest
+    container:
+      image: kirschbaumdevelopment/laravel-test-runner:8.1
+ 
+    steps:
+    - uses: actions/checkout@v1
+      with:
+        fetch-depth: 1
+ 
+    - name: Install composer dependencies
+      run: |
+        composer install --no-scripts
+ 
+    - name: Prepare Laravel Application
+      run: |
+        rm .env.testing
+        cp .env.ci .env
+        cp .env.ci .env.testing
+        touch database/database.sqlite  
+        php artisan key:generate
+        php artisan cache:clear
+ 
+    - name: Run Testsuite
+      run: php artisan test --stop-on-failure
