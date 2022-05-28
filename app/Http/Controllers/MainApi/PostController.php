@@ -3,35 +3,21 @@
 namespace App\Http\Controllers\MainApi;
 
 use App\Models\Post;
-use Illuminate\Http\Request;
-use App\Http\Controllers\MainController;
+use Illuminate\Database\Eloquent\Model;
 
-class PostController extends MainController
+class PostController extends MainApiController
 {
-    public function index(Request $Request)
+    protected function HiddenValues(): object
     {
-        $HiddenValues = ['content', 'created_at', 'updated_at'];
-
-        $Posts = Post::all()->makeHidden($HiddenValues);
-
-        $PostsArray = $Posts->toArray();
-
-        return $PostsArray;
+        return (object) [
+            'index' => ['content', 'created_at', 'updated_at'],
+            'show' => ['id'],
+        ];
     }
 
-    public function show(Request $Request)
+    protected function GetModel(): Model
     {
-        if (!$this->ValidateId($Request)) return $this->NotFound();
-
-        $Post = Post::find($Request->id);
-
-        if (!$Post) return $this->NotFound();
-
-        $HiddenValues = ['id'];
-
-        $PostArray = $Post->makeHidden($HiddenValues)->toArray();
-
-        return $PostArray;
+        return new Post;
     }
 
     protected function NotFound()

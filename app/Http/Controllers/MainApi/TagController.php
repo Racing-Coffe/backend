@@ -3,56 +3,43 @@
 namespace App\Http\Controllers\MainApi;
 
 use App\Models\Tag;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\Request;
-use App\Http\Controllers\MainController;
 
-class TagController extends MainController
+class TagController extends MainApiController
 {
-    public function index(Request $Request)
+    protected function HiddenValues(): object
     {
-        $HiddenValues = ['description', 'created_at', 'updated_at'];
-
-        $Tags = Tag::all()->makeHidden($HiddenValues);
-
-        $TagsArray = $Tags->toArray();
-
-        return $TagsArray;
+        return (object) [
+            'index' => ['description', 'created_at', 'updated_at'],
+            'show' => ['id'],
+        ];
     }
 
-    public function show(Request $Request)
+    protected function GetModel(): Model
     {
-        if (!$this->ValidateId($Request)) return $this->NotFound();
+        return new Tag;
+    }
 
-        $Tag = Tag::find($Request->id);
-
-        if (!$Tag) return $this->NotFound();
-
-        $HiddenValues = ['id'];
-
-        $TagArray = $Tag->makeHidden($HiddenValues)->toArray();
-
-        return $TagArray;
+    protected function NotFound()
+    {
+        return response(['Error' => 'Tag not found'], 404);
     }
 
     public function showPosts(Request $Request)
     {
         if (!$this->ValidateId($Request)) return $this->NotFound();
+        if (!$this->FindId($Request->id)) return $this->NotFound();
 
-        $Tag = Tag::find($Request->id);
-
-        if (!$Tag) return $this->NotFound();
-
-        $Posts = $Tag->posts()->getResults();
+        $Posts = $this
+            ->FindId($Request->id)
+            ->posts()
+            ->getResults();
 
         $HiddenValues = ['content', 'tag_id', 'author_id', 'created_at', 'updated_at'];
 
         $PostsArray = $Posts->makeHidden($HiddenValues)->toArray();
 
         return $PostsArray;
-    }
-
-    protected function NotFound()
-    {
-        return response(['Error' => 'Tag not found'], 404);
     }
 }

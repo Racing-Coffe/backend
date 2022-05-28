@@ -3,56 +3,43 @@
 namespace App\Http\Controllers\MainApi;
 
 use App\Models\Author;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\Request;
-use App\Http\Controllers\MainController;
 
-class AuthorController extends MainController
+class AuthorController extends MainApiController
 {
-    public function index(Request $Request)
+    protected function HiddenValues(): object
     {
-        $HiddenValues = ['email', 'avatar', 'twitter', 'created_at', 'updated_at'];
-
-        $Authors = Author::all()->makeHidden($HiddenValues);
-
-        $AuthorsArray = $Authors->toArray();
-
-        return $AuthorsArray;
+        return (object) [
+            'index' => ['email', 'avatar', 'twitter', 'created_at', 'updated_at'],
+            'show' => ['id', 'email'],
+        ];
     }
 
-    public function show(Request $Request)
+    protected function GetModel(): Model
     {
-        if (!$this->ValidateId($Request)) return $this->NotFound();
-
-        $Author = Author::find($Request->id);
-
-        if (!$Author) return $this->NotFound();
-
-        $HiddenValues = ['id', 'email'];
-
-        $AuthorArray = $Author->makeHidden($HiddenValues)->toArray();
-
-        return $AuthorArray;
-    }
-
-    public function showPosts(Request $Request)
-    {
-        if (!$this->ValidateId($Request)) return $this->NotFound();
-
-        $Author = Author::find($Request->id);
-
-        if (!$Author) return $this->NotFound();
-
-        $Posts = $Author->posts()->getResults();
-        
-        $HiddenValues = ['content', 'tag_id', 'author_id', 'created_at', 'updated_at'];
-
-        $PostsArray = $Posts->makeHidden($HiddenValues)->toArray();
-
-        return $PostsArray;
+        return new Author;
     }
 
     protected function NotFound()
     {
         return response(['Error' => 'Author not found'], 404);
+    }
+
+    public function showPosts(Request $Request)
+    {
+        if (!$this->ValidateId($Request)) return $this->NotFound();
+        if (!$this->FindId($Request->id)) return $this->NotFound();
+
+        $Posts = $this
+            ->FindId($Request->id)
+            ->posts()
+            ->getResults();
+
+        $HiddenValues = ['content', 'tag_id', 'author_id', 'created_at', 'updated_at'];
+
+        $PostsArray = $Posts->makeHidden($HiddenValues)->toArray();
+
+        return $PostsArray;
     }
 }
