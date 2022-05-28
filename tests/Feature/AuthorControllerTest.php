@@ -42,4 +42,26 @@ class AuthorControllerTest extends TestCase
 
         $response->assertJsonCount(3);
     }
+
+    /**
+     * Test the Show Route of Author Controller.
+     *
+     * @return void
+     */
+    public function test_show_route()
+    {
+        $response = $this->get('/api/authors/1');
+
+        $response->assertJson(
+            function (AssertableJson $json) {
+                $json->hasAll(['name', 'avatar', 'twitter', 'description', 'created_at', 'updated_at']);
+                $json->missingAll(['id', 'email', 'password']);
+            }
+        );
+
+        $response->assertStatus(200);
+        $response->assertSuccessful();
+
+        $response->assertJsonCount(6);
+    }
 }
