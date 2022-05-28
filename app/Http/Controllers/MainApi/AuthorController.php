@@ -1,9 +1,10 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\MainApi;
 
 use App\Models\Author;
 use Illuminate\Http\Request;
+use App\Http\Controllers\MainController;
 
 class AuthorController extends MainController
 {
