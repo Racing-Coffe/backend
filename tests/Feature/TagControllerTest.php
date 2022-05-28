@@ -42,4 +42,26 @@ class TagControllerTest extends TestCase
 
         $response->assertJsonCount(2);
     }
+
+    /**
+     * Test the Show Route of Tag Controller.
+     *
+     * @return void
+     */
+    public function test_show_route()
+    {
+        $response = $this->get('/api/tags/1');
+
+        $response->assertJson(
+            function (AssertableJson $json) {
+                $json->hasAll(['title', 'description', 'created_at', 'updated_at']);
+                $json->missingAll(['id']);
+            }
+        );
+
+        $response->assertStatus(200);
+        $response->assertSuccessful();
+
+        $response->assertJsonCount(4);
+    }
 }
