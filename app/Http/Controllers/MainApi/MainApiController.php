@@ -25,6 +25,20 @@ abstract class MainApiController extends MainController
         return $ResultArray;
     }
 
+    protected function GetData($Id)
+    {
+        $HiddenValues = $this->HiddenValues()->show;
+        $Model = $this->GetModel();
+
+        $Query = $Model::find($Id);
+
+        if (!$Query) return $this->NotFound();
+
+        $ResultArray = $Query->makeHidden($HiddenValues)->toArray();
+
+        return $ResultArray;
+    }
+
     public function index(Request $Request)
     {
         $ActionMethod = 'index';
@@ -42,16 +56,16 @@ abstract class MainApiController extends MainController
     {
         if (!$this->ValidateId($Request)) return $this->NotFound();
 
-        $HiddenValues = $this->HiddenValues()->show;
-        $Model = $this->GetModel();
+        $Id = $Request->id;
+        $ActionMethod = 'show';
+        $ControllerName = $this->GetControllerName();
 
-        $Result = $Model::find($Request->id);
+        $Key = "$ControllerName.$ActionMethod.$Id";
+        $Minutes = 5 * 60;
 
-        if (!$Result) return $this->NotFound();
+        $Result = Cache::remember($Key, $Minutes, fn () => $this->GetData($Id));
 
-        $ResultArray = $Result->makeHidden($HiddenValues)->toArray();
-
-        return $ResultArray;
+        return $Result;
     }
 
     protected function FindId($Id)
