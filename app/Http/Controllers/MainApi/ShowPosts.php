@@ -3,16 +3,16 @@
 namespace App\Http\Controllers\MainApi;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Cache;
 
 trait ShowPosts
 {
-    public function showPosts(Request $Request)
+    protected function GetPosts($Id)
     {
-        if (!$this->ValidateId($Request)) return $this->NotFound();
-        if (!$this->FindId($Request->id)) return $this->NotFound();
+        if (!$this->FindId($Id)) return $this->NotFound();
 
         $Posts = $this
-            ->FindId($Request->id)
+            ->FindId($Id)
             ->posts()
             ->getResults();
 
@@ -21,5 +21,21 @@ trait ShowPosts
         $PostsArray = $Posts->makeHidden($HiddenValues)->toArray();
 
         return $PostsArray;
+    }
+
+    public function showPosts(Request $Request)
+    {
+        if (!$this->ValidateId($Request)) return $this->NotFound();
+
+        $Id = $Request->id;
+        $ActionMethod = 'showPosts';
+        $ControllerName = $this->GetControllerName();
+
+        $Key = "$ControllerName.$ActionMethod.$Id";
+        $Minutes = 5 * 60;
+
+        $Result = Cache::remember($Key, $Minutes, fn () => $this->GetPosts($Id));
+
+        return $Result;
     }
 }
