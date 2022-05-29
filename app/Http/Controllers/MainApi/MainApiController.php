@@ -5,6 +5,7 @@ namespace App\Http\Controllers\MainApi;
 use Illuminate\Http\Request;
 use Illuminate\Database\Eloquent\Model;
 use App\Http\Controllers\MainController;
+use Illuminate\Support\Facades\Cache;
 
 abstract class MainApiController extends MainController
 {
@@ -12,16 +13,29 @@ abstract class MainApiController extends MainController
     protected abstract function HiddenValues(): object;
     protected abstract function GetModel(): Model;
 
-    public function index(Request $Request)
+    protected function GetAllData()
     {
         $HiddenValues = $this->HiddenValues()->index;
         $Model = $this->GetModel();
 
-        $Result = $Model::all()->makeHidden($HiddenValues);
+        $Query = $Model::all()->makeHidden($HiddenValues);
 
-        $ResultArray = $Result->toArray();
+        $ResultArray = $Query->toArray();
 
         return $ResultArray;
+    }
+
+    public function index(Request $Request)
+    {
+        $ActionMethod = 'index';
+        $ControllerName = $this->GetControllerName();
+
+        $Key = "$ControllerName.$ActionMethod";
+        $Minutes = 5 * 60;
+
+        $Result = Cache::remember($Key, $Minutes, fn () => $this->GetAllData());
+
+        return $Result;
     }
 
     public function show(Request $Request)
