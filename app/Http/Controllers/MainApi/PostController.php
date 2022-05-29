@@ -7,6 +7,11 @@ use Illuminate\Database\Eloquent\Model;
 
 class PostController extends MainApiController
 {
+    protected function GetControllerName(): string
+    {
+        return 'posts';
+    }
+
     protected function HiddenValues(): object
     {
         return (object) [

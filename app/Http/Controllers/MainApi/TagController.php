@@ -4,11 +4,15 @@ namespace App\Http\Controllers\MainApi;
 
 use App\Models\Tag;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Http\Request;
 
 class TagController extends MainApiController
 {
     use ShowPosts;
+
+    protected function GetControllerName(): string
+    {
+        return 'tags';
+    }
 
     protected function HiddenValues(): object
     {

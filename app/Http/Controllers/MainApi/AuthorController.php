@@ -4,11 +4,15 @@ namespace App\Http\Controllers\MainApi;
 
 use App\Models\Author;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Http\Request;
 
 class AuthorController extends MainApiController
 {
     use ShowPosts;
+
+    protected function GetControllerName(): string
+    {
+        return 'authors';
+    }
 
     protected function HiddenValues(): object
     {
