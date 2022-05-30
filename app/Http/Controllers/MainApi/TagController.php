@@ -31,4 +31,9 @@ class TagController extends MainApiController
     {
         return response(['Error' => 'Tag not found'], 404);
     }
+
+    protected function NotFoundText(): string
+    {
+        return 'Tag not found';
+    }
 }
