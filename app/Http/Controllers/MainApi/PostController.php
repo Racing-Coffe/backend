@@ -29,4 +29,9 @@ class PostController extends MainApiController
     {
         return response(['Error' => 'Post not found'], 404);
     }
+
+    protected function NotFoundText(): string
+    {
+        return 'Post not found';
+    }
 }

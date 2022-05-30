@@ -9,12 +9,9 @@ trait ShowPosts
 {
     protected function GetPosts($Id)
     {
-        if (!$this->FindId($Id)) return $this->NotFound();
+        $Query = $this->FindId($Id);
 
-        $Posts = $this
-            ->FindId($Id)
-            ->posts()
-            ->getResults();
+        $Posts = $Query->posts()->getResults();
 
         $HiddenValues = ['content', 'tag_id', 'author_id', 'created_at', 'updated_at'];
 

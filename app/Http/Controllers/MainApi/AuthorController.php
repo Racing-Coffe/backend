@@ -31,4 +31,9 @@ class AuthorController extends MainApiController
     {
         return response(['Error' => 'Author not found'], 404);
     }
+
+    protected function NotFoundText(): string
+    {
+        return 'Author not found';
+    }
 }

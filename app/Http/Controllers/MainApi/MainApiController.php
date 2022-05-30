@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\MainApi;
 
+use App\Exceptions\NotFoundHttpException;
 use Illuminate\Http\Request;
 use Illuminate\Database\Eloquent\Model;
 use App\Http\Controllers\MainController;
@@ -73,6 +74,10 @@ abstract class MainApiController extends MainController
         $Model = $this->GetModel();
 
         $Result = $Model::find($Id);
+
+        $NotFoundText = $this->NotFoundText();
+
+        if (!$Result) throw new NotFoundHttpException($NotFoundText);
 
         return $Result ? $Result : false;
     }
