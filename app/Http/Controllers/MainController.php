@@ -6,10 +6,12 @@ use App\Exceptions\NotFoundHttpException;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Database\Eloquent\Model;
 
 abstract class MainController extends Controller
 {
     protected abstract function GetControllerName(): string;
+    protected abstract function GetModel(): Model;
 
     protected function ValidateId(Request $Request): bool
     {

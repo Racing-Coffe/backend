@@ -11,7 +11,6 @@ use Illuminate\Support\Facades\Cache;
 abstract class MainApiController extends MainController
 {
     protected abstract function HiddenValues(): object;
-    protected abstract function GetModel(): Model;
 
     protected function GetAllData(): array
     {
