@@ -14,7 +14,7 @@ abstract class MainApiController extends MainController
     protected abstract function HiddenValues(): object;
     protected abstract function GetModel(): Model;
 
-    protected function GetAllData()
+    protected function GetAllData(): array
     {
         $HiddenValues = $this->HiddenValues()->index;
         $Model = $this->GetModel();
@@ -26,14 +26,11 @@ abstract class MainApiController extends MainController
         return $ResultArray;
     }
 
-    protected function GetData($Id)
+    protected function GetData(int $Id): array
     {
         $HiddenValues = $this->HiddenValues()->show;
-        $Model = $this->GetModel();
 
-        $Query = $Model::find($Id);
-
-        if (!$Query) return $this->NotFound();
+        $Query = $this->FindId($Id);
 
         $ResultArray = $Query->makeHidden($HiddenValues)->toArray();
 
@@ -55,7 +52,7 @@ abstract class MainApiController extends MainController
 
     public function show(Request $Request)
     {
-        if (!$this->ValidateId($Request)) return $this->NotFound();
+        $this->ValidateId($Request);
 
         $Id = $Request->id;
         $ActionMethod = 'show';
@@ -69,7 +66,7 @@ abstract class MainApiController extends MainController
         return $Result;
     }
 
-    protected function FindId($Id)
+    protected function FindId(int $Id): Model
     {
         $Model = $this->GetModel();
 
@@ -79,6 +76,6 @@ abstract class MainApiController extends MainController
 
         if (!$Result) throw new NotFoundHttpException($NotFoundText);
 
-        return $Result ? $Result : false;
+        return $Result;
     }
 }

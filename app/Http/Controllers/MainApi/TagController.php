@@ -4,6 +4,7 @@ namespace App\Http\Controllers\MainApi;
 
 use App\Models\Tag;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Routing\ResponseFactory;
 
 class TagController extends MainApiController
 {
@@ -25,11 +26,6 @@ class TagController extends MainApiController
     protected function GetModel(): Model
     {
         return new Tag;
-    }
-
-    protected function NotFound()
-    {
-        return response(['Error' => 'Tag not found'], 404);
     }
 
     protected function NotFoundText(): string

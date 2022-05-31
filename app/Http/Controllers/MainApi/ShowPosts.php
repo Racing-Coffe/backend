@@ -7,7 +7,7 @@ use Illuminate\Support\Facades\Cache;
 
 trait ShowPosts
 {
-    protected function GetPosts($Id)
+    protected function GetPosts(int $Id): array
     {
         $Query = $this->FindId($Id);
 
@@ -22,7 +22,7 @@ trait ShowPosts
 
     public function showPosts(Request $Request)
     {
-        if (!$this->ValidateId($Request)) return $this->NotFound();
+        $this->ValidateId($Request);
 
         $Id = $Request->id;
         $ActionMethod = 'showPosts';
