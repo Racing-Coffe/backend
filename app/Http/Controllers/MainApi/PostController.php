@@ -4,6 +4,7 @@ namespace App\Http\Controllers\MainApi;
 
 use App\Models\Post;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Routing\ResponseFactory;
 
 class PostController extends MainApiController
 {
@@ -23,11 +24,6 @@ class PostController extends MainApiController
     protected function GetModel(): Model
     {
         return new Post;
-    }
-
-    protected function NotFound()
-    {
-        return response(['Error' => 'Post not found'], 404);
     }
 
     protected function NotFoundText(): string

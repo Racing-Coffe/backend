@@ -4,6 +4,7 @@ namespace App\Http\Controllers\MainApi;
 
 use App\Models\Author;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Routing\ResponseFactory;
 
 class AuthorController extends MainApiController
 {
@@ -25,11 +26,6 @@ class AuthorController extends MainApiController
     protected function GetModel(): Model
     {
         return new Author;
-    }
-
-    protected function NotFound()
-    {
-        return response(['Error' => 'Author not found'], 404);
     }
 
     protected function NotFoundText(): string

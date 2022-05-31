@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Validator;
 
 abstract class MainController extends Controller
@@ -16,7 +17,10 @@ abstract class MainController extends Controller
         return !$Validator->fails();
     }
 
-    protected abstract function NotFound();
+    protected function NotFound(): Response
+    {
+        return response(['Error' => $this->NotFoundText()], 404);
+    }
 
     protected abstract function NotFoundText(): string;
 }
