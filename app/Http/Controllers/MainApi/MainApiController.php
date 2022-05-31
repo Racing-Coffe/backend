@@ -66,7 +66,7 @@ abstract class MainApiController extends MainController
         return $Result;
     }
 
-    protected function FindId($Id)
+    protected function FindId(int $Id): Model
     {
         $Model = $this->GetModel();
 
@@ -76,6 +76,6 @@ abstract class MainApiController extends MainController
 
         if (!$Result) throw new NotFoundHttpException($NotFoundText);
 
-        return $Result ? $Result : false;
+        return $Result;
     }
 }
