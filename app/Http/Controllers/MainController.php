@@ -9,6 +9,8 @@ use Illuminate\Support\Facades\Validator;
 
 abstract class MainController extends Controller
 {
+    protected abstract function GetControllerName(): string;
+
     protected function ValidateId(Request $Request): bool
     {
         $Request->merge(['id' => $Request->id]);
