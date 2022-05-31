@@ -26,14 +26,11 @@ abstract class MainApiController extends MainController
         return $ResultArray;
     }
 
-    protected function GetData($Id)
+    protected function GetData(int $Id): array
     {
         $HiddenValues = $this->HiddenValues()->show;
-        $Model = $this->GetModel();
 
-        $Query = $Model::find($Id);
-
-        if (!$Query) return $this->NotFound();
+        $Query = $this->FindId($Id);
 
         $ResultArray = $Query->makeHidden($HiddenValues)->toArray();
 
