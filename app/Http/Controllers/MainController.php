@@ -2,19 +2,25 @@
 
 namespace App\Http\Controllers;
 
+use App\Exceptions\NotFoundHttpException;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Validator;
 
 abstract class MainController extends Controller
 {
-    protected function ValidateId(Request $Request)
+    protected function ValidateId(Request $Request): bool
     {
         $Request->merge(['id' => $Request->id]);
         $Validation = ['id' => 'required|integer'];
         $Validator = Validator::make($Request->all(), $Validation);
 
-        return !$Validator->fails();
+        $Fail = $Validator->fails();
+        $NotFoundText = $this->NotFoundText();
+
+        if ($Fail) throw new NotFoundHttpException($NotFoundText);
+
+        return true;
     }
 
     protected function NotFound(): Response

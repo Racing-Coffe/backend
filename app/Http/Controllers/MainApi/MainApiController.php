@@ -55,7 +55,7 @@ abstract class MainApiController extends MainController
 
     public function show(Request $Request)
     {
-        if (!$this->ValidateId($Request)) return $this->NotFound();
+        $this->ValidateId($Request);
 
         $Id = $Request->id;
         $ActionMethod = 'show';

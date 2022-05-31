@@ -22,7 +22,7 @@ trait ShowPosts
 
     public function showPosts(Request $Request)
     {
-        if (!$this->ValidateId($Request)) return $this->NotFound();
+        $this->ValidateId($Request);
 
         $Id = $Request->id;
         $ActionMethod = 'showPosts';
