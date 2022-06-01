@@ -13,6 +13,11 @@ use Illuminate\Support\Facades\Cache;
  */
 abstract class MainApiController extends MainController
 {
+    /**
+     * Return the Database Values to be Hidden.
+     * 
+     * @return object
+     */
     protected abstract function HiddenValues(): object;
 
     protected function GetAllData(): array
