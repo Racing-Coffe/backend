@@ -8,6 +8,9 @@ use Illuminate\Database\Eloquent\Model;
 use App\Http\Controllers\MainController;
 use Illuminate\Support\Facades\Cache;
 
+/**
+ * The MainController Abstract Class has Index and Show methods to hand an Request.
+ */
 abstract class MainApiController extends MainController
 {
     protected abstract function HiddenValues(): object;
