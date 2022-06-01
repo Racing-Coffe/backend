@@ -37,6 +37,12 @@ abstract class MainApiController extends MainController
         return $ResultArray;
     }
 
+    /**
+     * Return an array with the given ID from the Model.
+     * 
+     * @param int $Id
+     * @return array
+     */
     protected function GetData(int $Id): array
     {
         $HiddenValues = $this->HiddenValues()->show;
