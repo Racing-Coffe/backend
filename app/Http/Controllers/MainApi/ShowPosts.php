@@ -10,6 +10,12 @@ use Illuminate\Support\Facades\Cache;
  */
 trait ShowPosts
 {
+    /**
+     * Get All Posts with the Given Id from the Model.
+     * 
+     * @param int $Id
+     * @return array
+     */
     protected function GetPosts(int $Id): array
     {
         $Query = $this->FindId($Id);
