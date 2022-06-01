@@ -8,6 +8,9 @@ use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Database\Eloquent\Model;
 
+/**
+ * The MainController Abstract Class has usefuls methods to manage an API Request.
+ */
 abstract class MainController extends Controller
 {
     protected abstract function GetControllerName(): string;
