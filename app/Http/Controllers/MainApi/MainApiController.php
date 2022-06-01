@@ -20,6 +20,11 @@ abstract class MainApiController extends MainController
      */
     protected abstract function HiddenValues(): object;
 
+    /**
+     * Return all the Data from the Model
+     * 
+     * @return array
+     */
     protected function GetAllData(): array
     {
         $HiddenValues = $this->HiddenValues()->index;
