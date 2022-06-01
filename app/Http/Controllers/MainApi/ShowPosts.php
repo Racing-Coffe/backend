@@ -5,6 +5,9 @@ namespace App\Http\Controllers\MainApi;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Cache;
 
+/**
+ * Trait used in Controllers with relationship with Posts
+ */
 trait ShowPosts
 {
     protected function GetPosts(int $Id): array
