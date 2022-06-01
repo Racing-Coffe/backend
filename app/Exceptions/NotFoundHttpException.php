@@ -5,6 +5,9 @@ namespace App\Exceptions;
 use Exception;
 use Illuminate\Http\Request;
 
+/**
+ * An Exception Used when a Resource was Not Found.
+ */
 class NotFoundHttpException extends Exception
 {
     /**

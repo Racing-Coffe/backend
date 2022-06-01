@@ -8,10 +8,23 @@ use Illuminate\Database\Eloquent\Model;
 use App\Http\Controllers\MainController;
 use Illuminate\Support\Facades\Cache;
 
+/**
+ * The MainController Abstract Class has Index and Show methods to hand an Request.
+ */
 abstract class MainApiController extends MainController
 {
+    /**
+     * Return the Database Values to be Hidden.
+     * 
+     * @return object
+     */
     protected abstract function HiddenValues(): object;
 
+    /**
+     * Return all the Data from the Model
+     * 
+     * @return array
+     */
     protected function GetAllData(): array
     {
         $HiddenValues = $this->HiddenValues()->index;
@@ -24,6 +37,12 @@ abstract class MainApiController extends MainController
         return $ResultArray;
     }
 
+    /**
+     * Return an array with the given ID from the Model.
+     * 
+     * @param int $Id
+     * @return array
+     */
     protected function GetData(int $Id): array
     {
         $HiddenValues = $this->HiddenValues()->show;
@@ -60,19 +79,6 @@ abstract class MainApiController extends MainController
         $Minutes = 5 * 60;
 
         $Result = Cache::remember($Key, $Minutes, fn () => $this->GetData($Id));
-
-        return $Result;
-    }
-
-    protected function FindId(int $Id): Model
-    {
-        $Model = $this->GetModel();
-
-        $Result = $Model::find($Id);
-
-        $NotFoundText = $this->NotFoundText();
-
-        if (!$Result) throw new NotFoundHttpException($NotFoundText);
 
         return $Result;
     }

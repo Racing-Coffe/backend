@@ -8,6 +8,9 @@ use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Database\Eloquent\Model;
 
+/**
+ * The MainController Abstract Class has usefuls methods to manage an API Request.
+ */
 abstract class MainController extends Controller
 {
     protected abstract function GetControllerName(): string;
@@ -25,6 +28,26 @@ abstract class MainController extends Controller
         if ($Fail) throw new NotFoundHttpException($NotFoundText);
 
         return true;
+    }
+
+    /**
+     * Return a Model instance with the given ID.
+     *
+     * @param  int  $Id
+     * @throws \App\Exceptions\NotFoundHttpException if the ID is not found.
+     * @return \Illuminate\Database\Eloquent\Model
+     */
+    protected function FindId(int $Id): Model
+    {
+        $Model = $this->GetModel();
+
+        $Result = $Model::find($Id);
+
+        $NotFoundText = $this->NotFoundText();
+
+        if (!$Result) throw new NotFoundHttpException($NotFoundText);
+
+        return $Result;
     }
 
     protected function NotFound(): Response
