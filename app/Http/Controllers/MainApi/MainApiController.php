@@ -63,17 +63,4 @@ abstract class MainApiController extends MainController
 
         return $Result;
     }
-
-    protected function FindId(int $Id): Model
-    {
-        $Model = $this->GetModel();
-
-        $Result = $Model::find($Id);
-
-        $NotFoundText = $this->NotFoundText();
-
-        if (!$Result) throw new NotFoundHttpException($NotFoundText);
-
-        return $Result;
-    }
 }
