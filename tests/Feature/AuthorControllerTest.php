@@ -29,7 +29,7 @@ class AuthorControllerTest extends TestCase
 
         $response->assertJson(
             fn (AssertableJson $json) =>
-            $json->has(3)->first(
+            $json->has(2)->first(
                 function (AssertableJson $json) {
                     $json->hasAll(['id', 'name', 'description',]);
                     $json->missingAll(['email', 'avatar', 'twitter', 'password', 'created_at', 'updated_at']);
@@ -40,7 +40,7 @@ class AuthorControllerTest extends TestCase
         $response->assertStatus(200);
         $response->assertSuccessful();
 
-        $response->assertJsonCount(3);
+        $response->assertJsonCount(2);
     }
 
     /**
