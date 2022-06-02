@@ -32,7 +32,7 @@ class PostSeeder extends Seeder
         Post::create([
             "title" => "Memes da F1!",
             "content" => "# A Fórmula 1 Está Repleta de Memes, Não é Mesmo??\nEntão aqui veremos alguns memes deste campeonato frenético de 2022, começando pelo patrão se preparando para andar de trator: ![Hamilton](https://pbs.twimg.com/media/FRHFKovWQAE2qc7?format=jpg&name=medium)",
-            "author_id" => 3,
+            "author_id" => 2,
             "tag_id" => null
         ]);
     }
