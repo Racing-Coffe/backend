@@ -29,7 +29,7 @@ class PostControllerTest extends TestCase
 
         $response->assertJson(
             fn (AssertableJson $json) =>
-            $json->has(3)->first(
+            $json->has(2)->first(
                 function (AssertableJson $json) {
                     $json->hasAll(['id', 'title', 'tag_id', 'author_id']);
                     $json->missingAll(['content', 'created_at', 'updated_at']);
@@ -40,7 +40,7 @@ class PostControllerTest extends TestCase
         $response->assertStatus(200);
         $response->assertSuccessful();
 
-        $response->assertJsonCount(3);
+        $response->assertJsonCount(2);
     }
 
     /**
