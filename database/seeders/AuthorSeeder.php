@@ -15,6 +15,16 @@ class AuthorSeeder extends Seeder
      */
     public function run()
     {
+
+        Author::create([
+            "name" => "Racing Coffe",
+            "email" => "racingcoffe@gmail.com",
+            "password" => "Secret",
+            "avatar" => "avatar.jpg",
+            "twitter" => "@RacingCoffe",
+            "description" => "Conta Oficial do Racing Coffe"
+        ]);
+
         Author::create([
             "name" => "Erick Bilhalba Abella",
             "email" => "erick@bilhalba.com.br",
@@ -22,21 +32,6 @@ class AuthorSeeder extends Seeder
             "avatar" => "avatar.jpg",
             "twitter" => "@TheDevick",
             "description" => "🚀 PHP é Bom Demais!\n🏁 Ocupado Aos Finais De Semana Vendo Corridas de Formula 1"
-        ]);
-        
-        Author::create([
-            "name" => "Serjão",
-            "email" => "serjao@botecof1.com.br",
-            "password" => "MyPassword",
-            "twitter" => "@SergioSiverly",
-            "description" => "Um menino que ficava com um prato na frente da TV fingindo ser um piloto de F1 nos anos 1990 e criador de conteúdo no @canalBOTECOF1"
-            
-        ]);
-        
-        Author::create([
-            "name" => "Estagiário",
-            "email" => "estagiario@f1.com.br",
-            "password" => "MyPassword",
         ]);
     }
 }
