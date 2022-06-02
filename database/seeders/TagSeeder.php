@@ -16,12 +16,13 @@ class TagSeeder extends Seeder
     public function run()
     {
         Tag::create([
-            "title" => "Red Bull - Ferrari",
-            "description" => "Red Bull VS Ferrari"
+            "title" => "Racing Coffe",
+            "description" => "Novidades sobre o Racing Coffe"
         ]);
         
         Tag::create([
-            "title" => "Mercedes"
+            "title" => "Contratos",
+            "description" => "As últimas notícias sobre os Contratos da Fórmula 1"
         ]);
     }
 }
