@@ -66,6 +66,21 @@ class AuthorControllerTest extends TestCase
     }
 
     /**
+     * Test the Show Route of Author Controller with Not Found Id.
+     * 
+     * @return void
+     */
+    public function test_show_route_not_found()
+    {
+        $response = $this->get('/api/authors/5');
+
+        $response->assertExactJson(["Error" => "Author not found"]);
+
+        $response->assertStatus(404);
+        $response->assertNotFound();
+    }
+
+    /**
      * Test the ShowPosts Route of Author Controller.
      *
      * @return void
@@ -88,5 +103,20 @@ class AuthorControllerTest extends TestCase
         $response->assertSuccessful();
 
         $response->assertJsonCount(1);
+    }
+
+    /**
+     * Test the ShowPosts Route of Author Controller with Not Found Id.
+     * 
+     * @return void
+     */
+    public function test_show_posts_route_not_found()
+    {
+        $response = $this->get('/api/authors/5/posts');
+
+        $response->assertExactJson(["Error" => "Author not found"]);
+
+        $response->assertStatus(404);
+        $response->assertNotFound();
     }
 }
