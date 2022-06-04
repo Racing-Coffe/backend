@@ -66,6 +66,21 @@ class TagControllerTest extends TestCase
     }
 
     /**
+     * Test the Show Route of Tag Controller with Not Found Id.
+     * 
+     * @return void
+     */
+    public function test_show_route_not_found()
+    {
+        $response = $this->get('/api/tags/5');
+
+        $response->assertExactJson(["Error" => "Tag not found"]);
+
+        $response->assertStatus(404);
+        $response->assertNotFound();
+    }
+
+    /**
      * Test the ShowPosts Route of Tag Controller.
      *
      * @return void
