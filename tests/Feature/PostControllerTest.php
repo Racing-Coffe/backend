@@ -64,4 +64,17 @@ class PostControllerTest extends TestCase
         
         $response->assertJsonCount(6);
     }
+    
+    /**
+     * Test the Show Route of Post Controller with Not Found Id.
+     */
+    public function test_show_route_not_found()
+    {
+        $response = $this->get('/api/posts/5');
+
+        $response->assertExactJson(["Error" => "Post not found"]);
+
+        $response->assertStatus(404);
+        $response->assertNotFound();
+    }
 }
