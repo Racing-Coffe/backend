@@ -61,7 +61,6 @@ abstract class MainApiController extends MainController
 
     public function index(Request $Request)
     {
-        $ActionMethod = 'index';
         $Page = $Request->page;
         $ActionMethod = 'index-' . $Page;
         $ControllerName = $this->GetControllerName();
@@ -70,6 +69,8 @@ abstract class MainApiController extends MainController
         $Minutes = 5 * 60;
 
         $Result = Cache::remember($Key, $Minutes, fn () => $this->GetAllData());
+
+        if(!$Result) return response(['Error' => 'Page not Found'], 404);
 
         return $Result;
     }
