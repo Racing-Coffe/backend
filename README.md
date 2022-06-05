@@ -38,3 +38,15 @@ php artisan migrate:fresh --seed
 php artisan key:generate
 php artisan serve
 ```
+
+## Endpoints
+| Method | Route                       | Route Name       | Controller                          | Description                    |
+| ------ | --------------------------- | ---------------- | ----------------------------------- | ------------------------------ |
+|  GET   |  api/posts                  | post.index       | MainApi\PostController@index        | List all Posts                 |
+|  GET   |  api/posts/{id}             | post.show        | MainApi\PostController@show         | Show a Specific Post           |
+|  GET   |  api/authors                | author.index     | MainApi\AuthorController@index      | List all Authors               |
+|  GET   |  api/authors/{id}           | author.show      | MainApi\AuthorController@show       | Show a Specific Author         |
+|  GET   |  api/authors/{id}/posts     | author.showPosts | MainApi\AuthorController@showPosts  | List all Posts from An Author  |
+|  GET   |  api/tags                   | tag.index        | MainApi\TagController@index         | List all Tags                  |
+|  GET   |  api/tags/{id}              | tag.show         | MainApi\TagController@show          | Show a Specific Tag            |
+|  GET   |  api/tags/{id}/posts        | tag.showPosts    | MainApi\TagController@showPosts     | List all Posts from A Tag      |
