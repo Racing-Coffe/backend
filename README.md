@@ -54,3 +54,16 @@ php artisan serve
 ## Trello
 You can view `Todo`, `Doing` and `Done` Tasks on Trello.
 [Link](https://trello.com/b/WCbMv3Q8/back-end)
+
+## How to Contribute
+You can create an issue in this repository. 
+
+If your idea is really good, I will return an ID, which will be used in the future.
+
+### Now it's time to shine!
+Create a Branch and start developing. 
+> The Branch Name is: `RC-{The ID that I Returned Earlier}` 
+> 
+> The Commits specification is [Conventional Commits](https://www.conventionalcommits.org/en/v1.0.0/). The optional Scope is: `RC-{The ID that I Returned Earlier}`
+
+After that, you can open an Pull Request and i will make the Code Review.
