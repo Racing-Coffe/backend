@@ -62,6 +62,8 @@ abstract class MainApiController extends MainController
     public function index(Request $Request)
     {
         $ActionMethod = 'index';
+        $Page = $Request->page;
+        $ActionMethod = 'index-' . $Page;
         $ControllerName = $this->GetControllerName();
 
         $Key = "$ControllerName.$ActionMethod";
