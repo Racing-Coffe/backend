@@ -27,20 +27,24 @@ class TagControllerTest extends TestCase
     {
         $response = $this->get('/api/tags');
 
-        $response->assertJson(
-            fn (AssertableJson $json) =>
-            $json->has(2)->first(
-                function (AssertableJson $json) {
-                    $json->hasAll(['id', 'title']);
-                    $json->missingAll(['description', 'created_at', 'updated_at']);
-                }
-            )
-        );
+        $data = $response->json('data');
+        $dataFirstItem = $response->json('data.0');
+
+        $has = ['id', 'title'];
+        $except = ['description', 'created_at', 'updated_at'];
+
+        foreach ($has as $item) {
+            $this->assertArrayHasKey($item, $dataFirstItem);
+        }
+        
+        foreach ($except as $item) {
+            $this->assertArrayNotHasKey($item, $dataFirstItem);
+        }
+
+        $this->assertCount(2, $data);
 
         $response->assertStatus(200);
         $response->assertSuccessful();
-
-        $response->assertJsonCount(2);
     }
 
     /**
