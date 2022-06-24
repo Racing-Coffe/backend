@@ -52,7 +52,7 @@ php artisan serve
 |  GET   |  api/tags/{id}/posts        | tag.showPosts    | MainApi\TagController@showPosts     | List all Posts from A Tag      |
 
 ## Trello
-You can view `Todo`, `Doing` and `Done` Tasks on Trello.
+You can view `Todo`, `Doing`, `Deliver` and `Done` Tasks on Trello.
 [Link](https://trello.com/b/WCbMv3Q8/back-end)
 
 ## How to Contribute
