@@ -4,6 +4,7 @@ use App\Http\Controllers\MainApi\TagController;
 use App\Http\Controllers\MainApi\UserController;
 use App\Http\Controllers\MainApi\PostController;
 use Illuminate\Support\Facades\Route;
+use Tests\Feature\AuthUserControllerTest;
 
 /*
 |--------------------------------------------------------------------------
