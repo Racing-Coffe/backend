@@ -4,7 +4,6 @@ namespace App\Http\Controllers\AuthApi;
 
 use App\Http\Controllers\MainController;
 use Illuminate\Database\Eloquent\Model;
-use App\Models\Post;
 use App\Models\User;
 
 class AuthUserController extends MainController
@@ -34,6 +33,11 @@ class AuthUserController extends MainController
         return "update";
     }
 
+    public function setAuthor()
+    {
+        return "setAuthor";
+    }
+
     public function store()
     {
         return "store";
@@ -42,10 +46,5 @@ class AuthUserController extends MainController
     public function login()
     {
         return "login";
-    }
-
-    public function setAuthor()
-    {
-        return "setAuthor";
     }
 }
