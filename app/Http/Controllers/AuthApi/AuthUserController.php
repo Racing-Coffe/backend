@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\MainApi;
+namespace App\Http\Controllers\AuthApi;
 
 use App\Http\Controllers\MainController;
 use Illuminate\Database\Eloquent\Model;
@@ -22,5 +22,30 @@ class AuthUserController extends MainController
     protected function NotFoundText(): string
     {
         return "User not found";
+    }
+
+    public function destroy()
+    {
+        return "destroy";
+    }
+
+    public function update()
+    {
+        return "update";
+    }
+
+    public function store()
+    {
+        return "store";
+    }
+
+    public function login()
+    {
+        return "login";
+    }
+
+    public function setAuthor()
+    {
+        return "setAuthor";
     }
 }
