@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 use App\Http\Controllers\MainController;
 use App\Http\Requests\StoreUserRequest;
 use App\Models\User;
+use Illuminate\Support\Facades\Hash;
 
 class AuthUserController extends MainController
 {
@@ -49,6 +50,8 @@ class AuthUserController extends MainController
             "twitter",
             "description"
         ]);
+
+        $UserInfo['password'] = Hash::make($UserInfo['password']);
 
         $User = User::create($UserInfo);
 
