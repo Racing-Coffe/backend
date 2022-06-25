@@ -2,8 +2,9 @@
 
 namespace App\Http\Controllers\AuthApi;
 
-use App\Http\Controllers\MainController;
 use Illuminate\Database\Eloquent\Model;
+use App\Http\Controllers\MainController;
+use App\Http\Requests\StoreUserRequest;
 use App\Models\User;
 
 class AuthUserController extends MainController
@@ -38,9 +39,27 @@ class AuthUserController extends MainController
         return "setAuthor";
     }
 
-    public function store()
+    public function store(StoreUserRequest $Request)
     {
-        return "store";
+        $UserInfo = $Request->only([
+            "name",
+            "email",
+            "password",
+            "avatar",
+            "twitter",
+            "description"
+        ]);
+
+        $User = User::create($UserInfo);
+
+        $AccessToken = $User->createToken('access_token', ['posts:comment'])->plainTextToken;
+
+        $Response = [
+            "data" => $User,
+            "access_token" => $AccessToken
+        ];
+
+        return response()->json($Response, 201);
     }
 
     public function login()
