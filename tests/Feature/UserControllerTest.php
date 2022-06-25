@@ -70,6 +70,28 @@ class UserControllerTest extends TestCase
     }
 
     /**
+     * Test the Show Route of User Controller when User isn't Author.
+     * 
+     * @return void
+     */
+    public function test_show_route_user_not_author()
+    {
+        $response = $this->get('/api/users/3');
+
+        $response->assertJson(
+            function (AssertableJson $json) {
+                $json->hasAll(['name', 'avatar', 'twitter', 'description', 'created_at', 'updated_at', 'is_author', 'email_verified_at']);
+                $json->missingAll(['id', 'email', 'password']);
+            }
+        );
+
+        $response->assertStatus(200);
+        $response->assertSuccessful();
+
+        $response->assertJsonCount(8);
+    }
+
+    /**
      * Test the Show Route of User Controller with Not Found Id.
      * 
      * @return void
