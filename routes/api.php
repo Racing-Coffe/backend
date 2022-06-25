@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AuthApi\AuthUserController;
 use App\Http\Controllers\MainApi\TagController;
 use App\Http\Controllers\MainApi\UserController;
 use App\Http\Controllers\MainApi\PostController;
@@ -35,4 +36,15 @@ Route::controller(TagController::class)->group(function () {
     Route::get('tags', 'index')->name('tag.index');
     Route::get('tags/{id}', 'show')->name('tag.show');
     Route::get('tags/{id}/posts', 'showPosts')->name('tag.showPosts');
+});
+
+Route::prefix('auth/users')->controller(AuthUserController::class)->group(function () {
+    Route::middleware('auth:sanctum')->group(function () {
+        Route::delete('/', 'destroy')->name('auth.user.destroy');
+        Route::post('/setauthor', 'setAuthor')->name('auth.user.setAuthor');
+        Route::put('/', 'update')->name('auth.user.update');
+    });
+
+    Route::post('/', 'store')->name('auth.user.store');
+    Route::post('/login', 'login')->name('auth.user.login');
 });

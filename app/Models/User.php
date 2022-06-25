@@ -43,8 +43,9 @@ class User extends Authenticatable
      */
     protected $casts = [
         'email_verified_at' => 'datetime',
+        'is_author' => 'boolean'
     ];
-    
+
     public function posts()
     {
         return $this->hasMany(Post::class);
