@@ -13,7 +13,7 @@ class Post extends Model
         'title',
         'content',
         'tag_id',
-        'author_id'
+        'user_id'
     ];
 
     public function author()

@@ -36,7 +36,7 @@ class TagControllerTest extends TestCase
         foreach ($has as $item) {
             $this->assertArrayHasKey($item, $dataFirstItem);
         }
-        
+
         foreach ($except as $item) {
             $this->assertArrayNotHasKey($item, $dataFirstItem);
         }
@@ -98,7 +98,7 @@ class TagControllerTest extends TestCase
             $json->has(1)->first(
                 function (AssertableJson $json) {
                     $json->hasAll(['id', 'title']);
-                    $json->missingAll(['content', 'tag_id', 'author_id', 'created_at', 'updated_at']);
+                    $json->missingAll(['content', 'tag_id', 'user_id', 'created_at', 'updated_at']);
                 }
             )
         );

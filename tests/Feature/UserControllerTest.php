@@ -2,12 +2,12 @@
 
 namespace Tests\Feature;
 
-use App\Models\Author;
+use App\Models\User;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
 use Illuminate\Testing\Fluent\AssertableJson;
 use Tests\TestCase;
 
-class AuthorControllerTest extends TestCase
+class UserControllerTest extends TestCase
 {
     use DatabaseMigrations;
 
@@ -19,46 +19,46 @@ class AuthorControllerTest extends TestCase
     }
 
     /**
-     * Test the Index Route of Author Controller.
+     * Test the Index Route of User Controller.
      *
      * @return void
      */
     public function test_index_route()
     {
-        $response = $this->get('/api/authors');
+        $response = $this->get('/api/users');
 
         $data = $response->json('data');
         $dataFirstItem = $response->json('data.0');
 
-        $has = ['id', 'name', 'description'];
-        $except = ['email', 'avatar', 'twitter', 'password', 'created_at', 'updated_at'];
+        $has = ['id', 'name', 'description', 'is_author'];
+        $except = ['email', 'avatar', 'twitter', 'password', 'created_at', 'updated_at', 'email_verified_at'];
 
         foreach ($has as $item) {
             $this->assertArrayHasKey($item, $dataFirstItem);
         }
-        
+
         foreach ($except as $item) {
             $this->assertArrayNotHasKey($item, $dataFirstItem);
         }
 
-        $this->assertCount(2, $data);
+        $this->assertCount(3, $data);
 
         $response->assertStatus(200);
         $response->assertSuccessful();
     }
 
     /**
-     * Test the Show Route of Author Controller.
+     * Test the Show Route of User Controller.
      *
      * @return void
      */
     public function test_show_route()
     {
-        $response = $this->get('/api/authors/1');
+        $response = $this->get('/api/users/1');
 
         $response->assertJson(
             function (AssertableJson $json) {
-                $json->hasAll(['name', 'avatar', 'twitter', 'description', 'created_at', 'updated_at']);
+                $json->hasAll(['name', 'avatar', 'twitter', 'description', 'created_at', 'updated_at', 'is_author', 'email_verified_at']);
                 $json->missingAll(['id', 'email', 'password']);
             }
         );
@@ -66,39 +66,39 @@ class AuthorControllerTest extends TestCase
         $response->assertStatus(200);
         $response->assertSuccessful();
 
-        $response->assertJsonCount(6);
+        $response->assertJsonCount(8);
     }
 
     /**
-     * Test the Show Route of Author Controller with Not Found Id.
+     * Test the Show Route of User Controller with Not Found Id.
      * 
      * @return void
      */
     public function test_show_route_not_found()
     {
-        $response = $this->get('/api/authors/5');
+        $response = $this->get('/api/users/5');
 
-        $response->assertExactJson(["Error" => "Author not found"]);
+        $response->assertExactJson(["Error" => "User not found"]);
 
         $response->assertStatus(404);
         $response->assertNotFound();
     }
 
     /**
-     * Test the ShowPosts Route of Author Controller.
+     * Test the ShowPosts Route of User Controller.
      *
      * @return void
      */
     public function test_show_posts_route()
     {
-        $response = $this->get('/api/authors/1/posts');
+        $response = $this->get('/api/users/1/posts');
 
         $response->assertJson(
             fn (AssertableJson $json) =>
             $json->has(1)->first(
                 function (AssertableJson $json) {
                     $json->hasAll(['id', 'title']);
-                    $json->missingAll(['content', 'tag_id', 'author_id', 'created_at', 'updated_at']);
+                    $json->missingAll(['content', 'tag_id', 'user_id', 'created_at', 'updated_at']);
                 }
             )
         );
@@ -110,15 +110,15 @@ class AuthorControllerTest extends TestCase
     }
 
     /**
-     * Test the ShowPosts Route of Author Controller with Not Found Id.
+     * Test the ShowPosts Route of User Controller with Not Found Id.
      * 
      * @return void
      */
     public function test_show_posts_route_not_found()
     {
-        $response = $this->get('/api/authors/5/posts');
+        $response = $this->get('/api/users/5/posts');
 
-        $response->assertExactJson(["Error" => "Author not found"]);
+        $response->assertExactJson(["Error" => "User not found"]);
 
         $response->assertStatus(404);
         $response->assertNotFound();

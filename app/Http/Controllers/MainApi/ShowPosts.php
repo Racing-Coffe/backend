@@ -22,7 +22,7 @@ trait ShowPosts
 
         $Posts = $Query->posts()->getResults();
 
-        $HiddenValues = ['content', 'tag_id', 'author_id', 'created_at', 'updated_at'];
+        $HiddenValues = ['content', 'tag_id', 'user_id', 'created_at', 'updated_at'];
 
         $PostsArray = $Posts->makeHidden($HiddenValues)->toArray();
 

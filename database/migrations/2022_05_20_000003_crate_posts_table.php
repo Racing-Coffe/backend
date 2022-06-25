@@ -21,8 +21,8 @@ return new class extends Migration
             $table->bigInteger('tag_id')->nullable();
             $table->foreign('tag_id')->references('id')->on('tags');
 
-            $table->bigInteger('author_id');
-            $table->foreign('author_id')->references('id')->on('users');
+            $table->bigInteger('user_id');
+            $table->foreign('user_id')->references('id')->on('users');
 
             $table->timestamps();
         });

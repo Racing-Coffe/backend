@@ -18,7 +18,7 @@ class UserController extends MainApiController
     protected function HiddenValues(): object
     {
         return (object) [
-            'index' => ['email', 'avatar', 'twitter', 'created_at', 'updated_at'],
+            'index' => ['email', 'avatar', 'twitter', 'created_at', 'updated_at', 'email_verified_at'],
             'show' => ['id', 'email'],
         ];
     }
