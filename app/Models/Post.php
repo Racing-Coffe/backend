@@ -13,12 +13,12 @@ class Post extends Model
         'title',
         'content',
         'tag_id',
-        'author_id'
+        'user_id'
     ];
 
     public function author()
     {
-        return $this->belongsTo(Author::class);
+        return $this->belongsTo(User::class);
     }
 
     public function tag()

@@ -30,13 +30,13 @@ class PostControllerTest extends TestCase
         $data = $response->json('data');
         $dataFirstItem = $response->json('data.0');
 
-        $has = ['id', 'title', 'tag_id', 'author_id'];
+        $has = ['id', 'title', 'tag_id', 'user_id'];
         $except = ['content', 'created_at', 'updated_at'];
 
         foreach ($has as $item) {
             $this->assertArrayHasKey($item, $dataFirstItem);
         }
-        
+
         foreach ($except as $item) {
             $this->assertArrayNotHasKey($item, $dataFirstItem);
         }
@@ -58,17 +58,17 @@ class PostControllerTest extends TestCase
 
         $response->assertJson(
             function (AssertableJson $json) {
-                $json->hasAll(['content', 'title', 'tag_id', 'author_id', 'created_at', 'updated_at']);
+                $json->hasAll(['content', 'title', 'tag_id', 'user_id', 'created_at', 'updated_at']);
                 $json->missingAll(['id', 'password']);
             }
         );
 
         $response->assertStatus(200);
         $response->assertSuccessful();
-        
+
         $response->assertJsonCount(6);
     }
-    
+
     /**
      * Test the Show Route of Post Controller with Not Found Id.
      * 
