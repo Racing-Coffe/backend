@@ -123,4 +123,19 @@ class UserControllerTest extends TestCase
         $response->assertStatus(404);
         $response->assertNotFound();
     }
+
+    /**
+     * Test the ShowPosts Route of User Controller with Not Found Id.
+     * 
+     * @return void
+     */
+    public function test_show_posts_route_user_not_author()
+    {
+        $response = $this->get('/api/users/3/posts');
+
+        $response->assertExactJson(["Error" => "User Simple User isn't an Author"]);
+
+        $response->assertStatus(404);
+        $response->assertNotFound();
+    }
 }
