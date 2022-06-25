@@ -21,7 +21,7 @@ return new class extends Migration
             $table->string('avatar')->nullable();
             $table->string('twitter')->nullable();
             $table->string('description')->nullable();
-            $table->boolean('isAuthor')->nullable();
+            $table->boolean('is_author')->nullable();
             $table->timestamp('email_verified_at')->nullable();
             $table->rememberToken();
             $table->timestamps();
