@@ -22,7 +22,7 @@ return new class extends Migration
             $table->foreign('tag_id')->references('id')->on('tags');
 
             $table->bigInteger('author_id');
-            $table->foreign('author_id')->references('id')->on('authors');
+            $table->foreign('author_id')->references('id')->on('users');
 
             $table->timestamps();
         });
