@@ -2,17 +2,17 @@
 
 namespace App\Http\Controllers\MainApi;
 
-use App\Models\Author;
+use App\Models\User;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Routing\ResponseFactory;
 
-class AuthorController extends MainApiController
+class UserController extends MainApiController
 {
     use ShowPosts;
 
     protected function GetControllerName(): string
     {
-        return 'authors';
+        return 'users';
     }
 
     protected function HiddenValues(): object
@@ -25,11 +25,11 @@ class AuthorController extends MainApiController
 
     protected function GetModel(): Model
     {
-        return new Author;
+        return new User;
     }
 
     protected function NotFoundText(): string
     {
-        return 'Author not found';
+        return 'User not found';
     }
 }

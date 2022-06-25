@@ -1,7 +1,7 @@
 <?php
 
 use App\Http\Controllers\MainApi\TagController;
-use App\Http\Controllers\MainApi\AuthorController;
+use App\Http\Controllers\MainApi\UserController;
 use App\Http\Controllers\MainApi\PostController;
 use Illuminate\Support\Facades\Route;
 
@@ -19,13 +19,13 @@ use Illuminate\Support\Facades\Route;
 Route::controller(PostController::class)->group(function () {
     Route::get('posts', 'index')->name('post.index');
     Route::get('posts/{id}', 'show')->name('post.show');
-
 });
 
-Route::controller(AuthorController::class)->group(function () {
-    Route::get('authors', 'index')->name('author.index');
-    Route::get('authors/{id}', 'show')->name('author.show');
-    Route::get('authors/{id}/posts', 'showPosts')->name('author.showPosts');
+
+Route::controller(UserController::class)->group(function () {
+    Route::get('users', 'index')->name('user.index');
+    Route::get('users/{id}', 'show')->name('user.show');
+    Route::get('users/{id}/posts', 'showPosts')->name('user.showPosts');
 });
 
 
