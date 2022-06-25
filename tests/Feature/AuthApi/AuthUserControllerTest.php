@@ -107,10 +107,9 @@ class AuthUserControllerTest extends TestCase
             "password" => "abcdef",
         ];
 
-
         $this->post(route('auth.user.store'), $User);
 
-        $UserModel = User::where('name', $User["name"]);
+        $UserModel = User::find(1);
 
         $this->assertNotEquals($User["password"], $UserModel->password);
     }
