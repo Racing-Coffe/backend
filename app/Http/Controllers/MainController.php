@@ -47,10 +47,6 @@ abstract class MainController extends Controller
 
         if (!$Result) throw new NotFoundHttpException($NotFoundText);
 
-        if ($Model instanceof \App\Models\User && $Result->is_author == false) {
-            throw new NotFoundHttpException("User $Result->name isn't an Author");
-        }
-
         return $Result;
     }
 
