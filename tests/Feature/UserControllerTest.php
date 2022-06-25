@@ -134,6 +134,7 @@ class UserControllerTest extends TestCase
         $response = $this->get('/api/users/3/posts');
 
         $response->assertExactJson(["Error" => "User Simple User isn't an Author"]);
+        $response->assertExactJson(["Error" => "User The Devick isn't an Author"]);
 
         $response->assertStatus(404);
         $response->assertNotFound();
