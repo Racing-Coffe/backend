@@ -12,8 +12,42 @@ trait ShowComments
 {
     protected abstract function HiddenValuesComments(): array;
 
+    /**
+     * Return all the Comments from an Post Id
+     * 
+     * @param int $Id
+     * @return array
+     */
+    protected function GetComments(int $Id): array
+    {
+        $Query = $this->FindId($Id);
+
+        $Comments = $Query->comments()->simplePaginate(2);
+
+        $HiddenValues = $this->HiddenValuesComments();
+
+        $Data = $Comments->makeHidden($HiddenValues)->toArray();
+        $Query->data = $Data;
+
+        $CommentsArray = $Comments->toArray();
+
+        return $CommentsArray;
+    }
+
     public function showComments(Request $Request)
     {
-        return ["Text" => "Hello"];
+        $this->ValidateId($Request);
+
+        $Id = $Request->id;
+        $ActionMethod = 'showComments';
+        $ControllerName = $this->GetControllerName();
+        $Page = $Request->page;
+
+        $Key = "$ControllerName.$ActionMethod.$Id.$Page";
+        $Minutes = 5 * 60;
+
+        $Result = Cache::remember($Key, $Minutes, fn () => $this->GetComments($Id));
+
+        return $Result;
     }
 }
