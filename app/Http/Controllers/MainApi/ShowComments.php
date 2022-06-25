@@ -39,11 +39,11 @@ trait ShowComments
         $this->ValidateId($Request);
 
         $Id = $Request->id;
-        $ActionMethod = 'showComments';
-        $ControllerName = $this->GetControllerName();
         $Page = $Request->page;
+        $ActionMethod = "showComments-$Page";
+        $ControllerName = $this->GetControllerName();
 
-        $Key = "$ControllerName.$ActionMethod.$Id.$Page";
+        $Key = "$ControllerName.$ActionMethod.$Id";
         $Minutes = 5 * 60;
 
         $Result = Cache::remember($Key, $Minutes, fn () => $this->GetComments($Id));
