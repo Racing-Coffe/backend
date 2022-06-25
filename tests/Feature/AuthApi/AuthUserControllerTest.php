@@ -2,6 +2,7 @@
 
 namespace Tests\Feature;
 
+use App\Models\User;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
 use Illuminate\Testing\Fluent\AssertableJson;
 use Tests\TestCase;
@@ -51,7 +52,12 @@ class AuthUserControllerTest extends TestCase
             ],
         ]);
 
-        $this->assertDatabaseHas('users', $User);
+        $UserData = [
+            "name" => $User["name"],
+            "email" => $User["email"]
+        ];
+
+        $this->assertDatabaseHas('users', $UserData);
     }
 
     /**
@@ -82,6 +88,30 @@ class AuthUserControllerTest extends TestCase
             ],
         ]);
 
-        $this->assertDatabaseHas('users', $User);
+        $UserData = [
+            "name" => $User["name"],
+            "email" => $User["email"]
+        ];
+
+        $this->assertDatabaseHas('users', $UserData);
+    }
+
+    /**
+     * Test Store Route is Hashing Password
+     */
+    public function test_store_route_is_hashing()
+    {
+        $User = [
+            "name" => "Example User",
+            "email" => "example@user.com",
+            "password" => "abcdef",
+        ];
+
+
+        $this->post(route('auth.user.store'), $User);
+
+        $UserModel = User::where('name', $User["name"]);
+
+        $this->assertNotEquals($User["password"], $UserModel->password);
     }
 }
