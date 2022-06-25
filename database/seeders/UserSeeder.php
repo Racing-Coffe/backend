@@ -2,11 +2,11 @@
 
 namespace Database\Seeders;
 
-use App\Models\Author;
+use App\Models\User;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
-class AuthorSeeder extends Seeder
+class UserSeeder extends Seeder
 {
     /**
      * Run the database seeds.
@@ -15,23 +15,31 @@ class AuthorSeeder extends Seeder
      */
     public function run()
     {
-
-        Author::create([
+        User::create([
             "name" => "Racing Coffe",
             "email" => "racingcoffe@gmail.com",
             "password" => "Secret",
             "avatar" => "avatar.jpg",
             "twitter" => "@RacingCoffe",
-            "description" => "Conta Oficial do Racing Coffe"
+            "description" => "Conta Oficial do Racing Coffe",
+            "is_author" => true
         ]);
 
-        Author::create([
+        User::create([
             "name" => "Erick Bilhalba Abella",
             "email" => "erick@bilhalba.com.br",
             "password" => "MyPassword",
             "avatar" => "avatar.jpg",
             "twitter" => "@TheDevick",
-            "description" => "🚀 PHP é Bom Demais!\n🏁 Ocupado Aos Finais De Semana Vendo Corridas de Formula 1"
+            "description" => "🚀 PHP é Bom Demais!\n🏁 Ocupado Aos Finais De Semana Vendo Corridas de Formula 1",
+            "is_author" => true
+        ]);
+
+        User::create([
+            "name" => "Simple User",
+            "email" => "simple@user.com",
+            "password" => "123456",
+            "avatar" => "avatar.jpg"
         ]);
     }
 }
