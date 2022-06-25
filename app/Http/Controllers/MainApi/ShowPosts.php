@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\MainApi;
 
+use App\Exceptions\NotFoundHttpException;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Cache;
 
@@ -19,6 +20,15 @@ trait ShowPosts
     protected function GetPosts(int $Id): array
     {
         $Query = $this->FindId($Id);
+
+        $Model = $this->GetModel();
+        
+        $ModelIsUser = $Model instanceof \App\Models\User;
+        $UserIsAuthor = $Query->is_author == false;
+
+        if ($ModelIsUser && $UserIsAuthor) {
+            throw new NotFoundHttpException("User $Query->name isn't an Author");
+        }
 
         $Posts = $Query->posts()->getResults();
 

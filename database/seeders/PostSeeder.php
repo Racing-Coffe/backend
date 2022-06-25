@@ -28,5 +28,12 @@ class PostSeeder extends Seeder
             "user_id" => 2,
             "tag_id" => 2
         ]);
+
+        Post::create([
+            "title" => "Aston Martin e Williams: Quais serão os pilotos?",
+            "content" => "# Aston Martin e Williams sem Dupla de Pilotos Confirmada\n\nA situação atual das equipes Aston Martin e Williams, relacionada a dulpa de pilotos ainda segue inserta.\n\n## Aston Martin\nA equipe, com o primeiro piloto Sebastian Vettel, ao que tudo indica, vai continuar com sua dupla atual: Sebastial Vettel e Lance Stroll.\n\n# Williams\nEnquanto a Aston Martin provavelmente seguirá com seus dois pilotos, a situação na Williams é diferente. Enquanto Albon tem uma grande chance de seguir na Equipe, seu companheiro, Nicholas Latifi não parece ter um assento confirmado na Formula 1 para o próximo ano, podendo ser trocado pelo jovem piloto Oscar Piastri.",
+            "user_id" => 2,
+            "tag_id" => 3
+        ]);
     }
 }

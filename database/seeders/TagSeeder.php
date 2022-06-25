@@ -24,5 +24,10 @@ class TagSeeder extends Seeder
             "title" => "Contratos",
             "description" => "As últimas notícias sobre os Contratos da Fórmula 1"
         ]);
+
+        Tag::create([
+            "title" => "Rumores",
+            "description" => "Os rumores mpor das da Fórmula 1"
+        ]);
     }
 }

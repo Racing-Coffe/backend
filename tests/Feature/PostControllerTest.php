@@ -41,7 +41,7 @@ class PostControllerTest extends TestCase
             $this->assertArrayNotHasKey($item, $dataFirstItem);
         }
 
-        $this->assertCount(2, $data);
+        $this->assertCount(3, $data);
 
         $response->assertStatus(200);
         $response->assertSuccessful();
@@ -82,5 +82,34 @@ class PostControllerTest extends TestCase
 
         $response->assertStatus(404);
         $response->assertNotFound();
+    }
+
+    /**
+     * Test the ShowComments Route of Post Controller.
+     * 
+     * @return void
+     */
+    public function test_show_comments_route()
+    {
+        $response = $this->get('/api/posts/1/comments');
+
+        $data = $response->json('data');
+        $dataFirstItem = $response->json('data.0');
+
+        $has = ['id', 'content', 'is_fixed', 'user_id', 'created_at', 'updated_at'];
+        $except = ['post_id'];
+
+        foreach ($has as $item) {
+            $this->assertArrayHasKey($item, $dataFirstItem);
+        }
+
+        foreach ($except as $item) {
+            $this->assertArrayNotHasKey($item, $dataFirstItem);
+        }
+
+        $this->assertCount(2, $data);
+
+        $response->assertStatus(200);
+        $response->assertSuccessful();
     }
 }

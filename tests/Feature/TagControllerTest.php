@@ -41,7 +41,7 @@ class TagControllerTest extends TestCase
             $this->assertArrayNotHasKey($item, $dataFirstItem);
         }
 
-        $this->assertCount(2, $data);
+        $this->assertCount(3, $data);
 
         $response->assertStatus(200);
         $response->assertSuccessful();
