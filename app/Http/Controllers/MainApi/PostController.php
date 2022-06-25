@@ -8,6 +8,8 @@ use Illuminate\Routing\ResponseFactory;
 
 class PostController extends MainApiController
 {
+    use ShowComments;
+
     protected function GetControllerName(): string
     {
         return 'posts';
@@ -19,6 +21,11 @@ class PostController extends MainApiController
             'index' => ['content', 'created_at', 'updated_at'],
             'show' => ['id'],
         ];
+    }
+
+    protected function HiddenValuesComments(): array
+    {
+        return ["post_id"];
     }
 
     protected function GetModel(): Model

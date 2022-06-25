@@ -70,7 +70,7 @@ abstract class MainApiController extends MainController
 
         $Result = Cache::remember($Key, $Minutes, fn () => $this->GetAllData());
 
-        if(!$Result) return response(['Error' => 'Page not Found'], 404);
+        if (!$Result) return response(['Error' => 'Page not Found'], 404);
 
         return $Result;
     }

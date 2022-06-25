@@ -9,6 +9,7 @@ use Illuminate\Routing\ResponseFactory;
 class UserController extends MainApiController
 {
     use ShowPosts;
+    use ShowComments;
 
     protected function GetControllerName(): string
     {
@@ -26,6 +27,11 @@ class UserController extends MainApiController
     protected function GetModel(): Model
     {
         return new User;
+    }
+
+    protected function HiddenValuesComments(): array
+    {
+        return ["user_id"];
     }
 
     protected function NotFoundText(): string
