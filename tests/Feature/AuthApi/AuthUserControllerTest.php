@@ -2,6 +2,7 @@
 
 namespace Tests\Feature;
 
+use App\Models\User;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
 use Illuminate\Testing\Fluent\AssertableJson;
 use Tests\TestCase;
@@ -51,7 +52,12 @@ class AuthUserControllerTest extends TestCase
             ],
         ]);
 
-        $this->assertDatabaseHas('users', $User);
+        $UserData = [
+            "name" => $User["name"],
+            "email" => $User["email"]
+        ];
+
+        $this->assertDatabaseHas('users', $UserData);
     }
 
     /**
@@ -82,6 +88,79 @@ class AuthUserControllerTest extends TestCase
             ],
         ]);
 
-        $this->assertDatabaseHas('users', $User);
+        $UserData = [
+            "name" => $User["name"],
+            "email" => $User["email"]
+        ];
+
+        $this->assertDatabaseHas('users', $UserData);
+    }
+
+    /**
+     * Test Store Route is Hashing Password
+     */
+    public function test_store_route_is_hashing()
+    {
+        $User = [
+            "name" => "Example User",
+            "email" => "example@user.com",
+            "password" => "abcdef",
+        ];
+
+        $this->post(route('auth.user.store'), $User);
+
+        $UserModel = User::find(1);
+
+        $this->assertNotEquals($User["password"], $UserModel->password);
+    }
+    
+    /**
+     * Test Login Route
+     */
+    public function test_login_route()
+    {
+        $User = [
+            "email" => "racingcoffe@gmail.com",
+            "password" => "Secret",
+        ];
+
+        $Request = $this->post(route('auth.user.login'), $User);
+
+        $Request->assertOk();
+        $Request->assertSuccessful();
+
+        $Request->assertJsonStructure(["access_token"]);
+    }
+
+    /**
+     * Test Login Route Wrong Password
+     */
+    public function test_login_route_wrong_password()
+    {
+        $User = [
+            "email" => "racingcoffe@gmail.com",
+            "password" => "123456",
+        ];
+        
+        $Request = $this->post(route('auth.user.login'), $User);
+
+        $Request->assertUnauthorized();
+        $Request->assertExactJson(["Error" => "Unauthorized"]);
+    }
+
+    /**
+     * Test Login Route Wrong Email
+     */
+    public function test_login_route_wrong_eamil()
+    {
+        $User = [
+            "email" => "dont@exist.com",
+            "password" => "Secret",
+        ];
+        
+        $Request = $this->post(route('auth.user.login'), $User);
+
+        $Request->assertUnauthorized();
+        $Request->assertExactJson(["Error" => "Unauthorized"]);
     }
 }

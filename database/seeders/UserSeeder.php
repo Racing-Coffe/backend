@@ -18,7 +18,7 @@ class UserSeeder extends Seeder
         User::create([
             "name" => "Racing Coffe",
             "email" => "racingcoffe@gmail.com",
-            "password" => "Secret",
+            "password" => '$2y$10$XhGGWeZEqP8QfwimVm9dteYBxM8ptQRqAFyTDjiq7MLfqwljlvkJ.', //Secret
             "avatar" => "avatar.jpg",
             "twitter" => "@RacingCoffe",
             "description" => "Conta Oficial do Racing Coffe",
@@ -28,7 +28,7 @@ class UserSeeder extends Seeder
         User::create([
             "name" => "Erick Bilhalba Abella",
             "email" => "erick@bilhalba.com.br",
-            "password" => "MyPassword",
+            "password" => '$2y$10$CW2RNCirx6ClKsvINQnr7OgrcO/Zz41Jri52mN9e1cq40/RprXJwK', //MyPassword
             "avatar" => "avatar.jpg",
             "twitter" => "@TheDevick",
             "description" => "🚀 PHP é Bom Demais!\n🏁 Ocupado Aos Finais De Semana Vendo Corridas de Formula 1",
@@ -38,14 +38,14 @@ class UserSeeder extends Seeder
         User::create([
             "name" => "The Devick",
             "email" => "The@Devick.com",
-            "password" => "PHP",
+            "password" => '$2y$10$3G01hoxRltTCxu9lmnASV.8a/f9fbQ/sQPoqoYNx.4jkQnEWwrFJS', //PHP
             "avatar" => "avatar.jpg"
         ]);
 
         User::create([
             "name" => "Simple User",
             "email" => "simple@user.com",
-            "password" => "123456"
+            "password" => '$2y$10$2sJBMDmDITzXrRbYzN3cYuJEgWFav1DoLHpxXMFA3rkRj7BJFActu' //123456
         ]);
     }
 }

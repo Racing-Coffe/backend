@@ -1,6 +1,6 @@
 <?php
 
-namespace Tests\Feature;
+namespace Tests\Feature\MainApi;
 
 use App\Models\Post;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
