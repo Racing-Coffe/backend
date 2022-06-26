@@ -27,7 +27,11 @@ class AuthUserController extends MainController
         return "User not found";
     }
 
-    public function destroy()
+    /**
+     * @param DestroyUserRequest $Request
+     * @param Authenticatable|User $User 
+     */
+    public function destroy(DestroyUserRequest $Request, Authenticatable $User)
     {
         return "destroy";
     }
@@ -42,6 +46,9 @@ class AuthUserController extends MainController
         return "setAuthor";
     }
 
+    /**
+     * @param StoreUserRequest $Request
+     */
     public function store(StoreUserRequest $Request)
     {
         $UserInfo = $Request->only([
@@ -67,6 +74,9 @@ class AuthUserController extends MainController
         return response()->json($Response, 201);
     }
 
+    /**
+     * @param Request $Request
+     */
     public function login(Request $Request)
     {
         $Credentials = $Request->only([
