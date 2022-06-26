@@ -40,16 +40,22 @@ php artisan serve
 ```
 
 ## Endpoints
-| Method | Route                       | Route Name       | Controller                          | Description                    |
-| ------ | --------------------------- | ---------------- | ----------------------------------- | ------------------------------ |
-|  GET   |  api/posts                  | post.index       | MainApi\PostController@index        | List all Posts                 |
-|  GET   |  api/posts/{id}             | post.show        | MainApi\PostController@show         | Show a Specific Post           |
-|  GET   |  api/authors                | author.index     | MainApi\AuthorController@index      | List all Authors               |
-|  GET   |  api/authors/{id}           | author.show      | MainApi\AuthorController@show       | Show a Specific Author         |
-|  GET   |  api/authors/{id}/posts     | author.showPosts | MainApi\AuthorController@showPosts  | List all Posts from An Author  |
-|  GET   |  api/tags                   | tag.index        | MainApi\TagController@index         | List all Tags                  |
-|  GET   |  api/tags/{id}              | tag.show         | MainApi\TagController@show          | Show a Specific Tag            |
-|  GET   |  api/tags/{id}/posts        | tag.showPosts    | MainApi\TagController@showPosts     | List all Posts from A Tag      |
+| Method  | Route                       | Route Name          | Controller                           | Description                    | Authorization                |
+| ------- | --------------------------- | ------------------- | ------------------------------------ | ------------------------------ | ---------------------------- |
+|  GET    |  api/posts                  | post.index          | MainApi\PostController@index         | List all Posts                 | None                         |
+|  GET    |  api/posts/{id}             | post.show           | MainApi\PostController@show          | Show a Specific Post           | None                         |
+|  GET    |  api/authors                | author.index        | MainApi\AuthorController@index       | List all Authors               | None                         |
+|  GET    |  api/authors/{id}           | author.show         | MainApi\AuthorController@show        | Show a Specific Author         | None                         |
+|  GET    |  api/authors/{id}/posts     | author.showPosts    | MainApi\AuthorController@showPosts   | List all Posts from An Author  | None                         |
+|  GET    |  api/tags                   | tag.index           | MainApi\TagController@index          | List all Tags                  | None                         |
+|  GET    |  api/tags/{id}              | tag.show            | MainApi\TagController@show           | Show a Specific Tag            | None                         |
+|  GET    |  api/tags/{id}/posts        | tag.showPosts       | MainApi\TagController@showPosts      | List all Posts from A Tag      | None                         |
+|  POST   |  api/auth/users             | auth.user.store     | AuthApi\AuthUserController@store     | Store a new User               | Return the Access Token      |
+|  POST   |  api/auth/users/login       | auth.user.login     | AuthApi\AuthUserController@login     | Login an User                  | Return the Access Token      |
+|  POST   |  api/auth/users/setauthor   | auth.user.setAuthor | AuthApi\AuthUserController@setAuthor | Set an User as Author          | Needs be Admin               |
+|  PUT    |  api/auth/users             | auth.user.update    | AuthApi\AuthUserController@update    | Update Data from User          | Needs Access Token from User |
+|  DELETE |  api/auth/users             | auth.user.destroy   | AuthApi\AuthUserController@destroy   | Delete an User                 | Needs Access Token from User |
+
 
 ## Trello
 You can view `Todo`, `Doing`, `Deliver` and `Done` Tasks on Trello.
