@@ -113,4 +113,54 @@ class AuthUserControllerTest extends TestCase
 
         $this->assertNotEquals($User["password"], $UserModel->password);
     }
+    
+    /**
+     * Test Login Route
+     */
+    public function test_login_route()
+    {
+        $User = [
+            "email" => "racingcoffe@gmail.com",
+            "password" => "Secret",
+        ];
+
+        $Request = $this->post(route('auth.user.login'), $User);
+
+        $Request->assertOk();
+        $Request->assertSuccessful();
+
+        $Request->assertJsonStructure(["access_token"]);
+    }
+
+    /**
+     * Test Login Route Wrong Password
+     */
+    public function test_login_route_wrong_password()
+    {
+        $User = [
+            "email" => "racingcoffe@gmail.com",
+            "password" => "123456",
+        ];
+        
+        $Request = $this->post(route('auth.user.login'), $User);
+
+        $Request->assertUnauthorized();
+        $Request->assertExactJson(["Error" => "Unauthorized"]);
+    }
+
+    /**
+     * Test Login Route Wrong Email
+     */
+    public function test_login_route_wrong_eamil()
+    {
+        $User = [
+            "email" => "dont@exist.com",
+            "password" => "Secret",
+        ];
+        
+        $Request = $this->post(route('auth.user.login'), $User);
+
+        $Request->assertUnauthorized();
+        $Request->assertExactJson(["Error" => "Unauthorized"]);
+    }
 }
