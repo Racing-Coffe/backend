@@ -209,4 +209,30 @@ class AuthUserControllerTest extends TestCase
 
         $this->assertDatabaseMissing('users', $this->SimpleUser);
     }
+
+    /**
+     * Test Destroy User with Wrong Credentials
+     */
+    public function test_destroy_route_wrong_credentials()
+    {
+        //Arrange 
+        $Token = $this->CreateUser()["access_token"];
+
+        $Credentials = $this->SimpleUserCredentials;
+        $Credentials["password"] = "Wrong Password";
+
+        $Headers = [
+            "Accept" => "application/json",
+            "Authorization" => "Bearer $Token"
+        ];
+
+        //Act
+        $Request = $this->delete(route('auth.user.destroy'), $Credentials, $Headers);
+
+        //Assert
+        $Request->assertExactJson(["Error" => "Unauthorized"]);
+        $Request->assertUnauthorized();
+
+        $this->assertDatabaseHas('users', $this->SimpleUser);
+    }
 }
