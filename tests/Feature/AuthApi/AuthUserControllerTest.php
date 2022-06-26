@@ -18,6 +18,26 @@ class AuthUserControllerTest extends TestCase
         $this->seed();
     }
 
+    protected array $SimpleUserCredentials = [
+        "name" => "Example User",
+        "email" => "example@user.com",
+        "password" => "abcdef",
+    ];
+
+    protected array $SimpleUser = [
+        "name" => "Example User",
+        "email" => "example@user.com",
+    ];
+
+    protected function CreateUser(): array
+    {
+        $User = $this->SimpleUserCredentials;
+
+        $Request = $this->post(route('auth.user.store'), $User);
+
+        return $Request->json();
+    }
+
     /**
      * Test Store an Full User
      */
@@ -113,7 +133,7 @@ class AuthUserControllerTest extends TestCase
 
         $this->assertNotEquals($User["password"], $UserModel->password);
     }
-    
+
     /**
      * Test Login Route
      */
@@ -141,7 +161,7 @@ class AuthUserControllerTest extends TestCase
             "email" => "racingcoffe@gmail.com",
             "password" => "123456",
         ];
-        
+
         $Request = $this->post(route('auth.user.login'), $User);
 
         $Request->assertUnauthorized();
@@ -157,10 +177,36 @@ class AuthUserControllerTest extends TestCase
             "email" => "dont@exist.com",
             "password" => "Secret",
         ];
-        
+
         $Request = $this->post(route('auth.user.login'), $User);
 
         $Request->assertUnauthorized();
         $Request->assertExactJson(["Error" => "Unauthorized"]);
+    }
+
+    /**
+     * Test Destroy Route
+     */
+    public function test_destroy_route()
+    {
+        //Arrange 
+        $Token = $this->CreateUser()["access_token"];
+
+        $Credentials = $this->SimpleUserCredentials;
+
+        $Headers = [
+            "Accept" => "application/json",
+            "Authorization" => "Bearer $Token"
+        ];
+
+        //Act
+        $Request = $this->delete(route('auth.user.destroy'), $Credentials, $Headers);
+
+        //Assert
+        $Request->assertExactJson(["Success" => "User Destroyed"]);
+        $Request->assertSuccessful();
+        $Request->assertOk();
+
+        $this->assertDatabaseMissing('users', $this->SimpleUser);
     }
 }
