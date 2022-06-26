@@ -2,11 +2,13 @@
 
 namespace App\Http\Controllers\AuthApi;
 
-use Illuminate\Database\Eloquent\Model;
+use App\Models\User;
 use App\Http\Controllers\MainController;
 use App\Http\Requests\StoreUserRequest;
-use App\Models\User;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Http\Request;
 
 class AuthUserController extends MainController
 {
@@ -65,8 +67,22 @@ class AuthUserController extends MainController
         return response()->json($Response, 201);
     }
 
-    public function login()
+    public function login(Request $Request)
     {
-        return "login";
+        $Credentials = $Request->only([
+            "email",
+            "password"
+        ]);
+
+        if (Auth::attempt($Credentials) === false) {
+            return response(["Error" => "Unauthorized"], 401);
+        }
+
+        $User = User::where('email', $Credentials["email"])->first();
+
+        $User->tokens()->delete();
+        $AccessToken = $User->createToken('access_token', ['posts:comment'])->plainTextToken;
+
+        return response()->json(["access_token" => $AccessToken]);
     }
 }
