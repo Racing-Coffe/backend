@@ -1,6 +1,6 @@
 <?php
 
-namespace Tests\Feature;
+namespace Tests\Feature\MainApi;
 
 use App\Models\Tag;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
