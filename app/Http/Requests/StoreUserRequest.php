@@ -26,7 +26,7 @@ class StoreUserRequest extends FormRequest
         return [
             "name" => ["Min:5", "Max:30", "required"],
             "email" => ["Min:5", "Max:100", "Email", "Unique:App\Models\User,email", "required"],
-            "password" => ["Min:5", "Max:30"],
+            "password" => ["Min:5", "Max:30", "required"],
             "avatar" => ["ends_with:.jpg,.png"],
             "twitter" => ["Min:5", "Max:30", "starts_with:@"],
             "description" => ["Min: 10", "Max:200"],
