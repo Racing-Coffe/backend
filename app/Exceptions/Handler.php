@@ -3,6 +3,8 @@
 namespace App\Exceptions;
 
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
+use Illuminate\Auth\AuthenticationException;
+use Illuminate\Http\Request;
 use Throwable;
 
 class Handler extends ExceptionHandler
@@ -43,8 +45,9 @@ class Handler extends ExceptionHandler
      */
     public function register()
     {
-        $this->reportable(function (Throwable $e) {
-            //
+        //Change AuthenticationException Error Message
+        $this->renderable(function (AuthenticationException $Error, Request $Request) {
+            return response()->json(["Error" => "Unauthenticated"], 401);
         });
     }
 }

@@ -4,7 +4,9 @@ namespace App\Http\Controllers\AuthApi;
 
 use App\Models\User;
 use App\Http\Controllers\MainController;
+use App\Http\Requests\DestroyUserRequest;
 use App\Http\Requests\StoreUserRequest;
+use Illuminate\Contracts\Auth\Authenticatable;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Auth;
@@ -27,9 +29,34 @@ class AuthUserController extends MainController
         return "User not found";
     }
 
-    public function destroy()
+    /**
+     * @param DestroyUserRequest $Request
+     * @param Authenticatable|User $User 
+     */
+    public function destroy(DestroyUserRequest $Request, Authenticatable $User)
     {
-        return "destroy";
+        $UserInfo = $Request->only([
+            "name",
+            "email",
+            "password"
+        ]);
+
+        $UserCorrect =
+            $User->name === $UserInfo["name"] &&
+            $User->email === $UserInfo["email"] &&
+            Hash::check($UserInfo["password"], $User->password);
+
+        if ($UserCorrect === false) {
+            return response()->json(["Error" => "Unauthorized"], 401);
+        }
+
+        $UserDeleted = $User->delete();
+
+        if($UserDeleted === false) {
+            return response()->json(["Error" => "Server Error"], 500);
+        }
+
+        return response()->json(["Success" => "User Destroyed"], 200);
     }
 
     public function update()
@@ -42,6 +69,9 @@ class AuthUserController extends MainController
         return "setAuthor";
     }
 
+    /**
+     * @param StoreUserRequest $Request
+     */
     public function store(StoreUserRequest $Request)
     {
         $UserInfo = $Request->only([
@@ -67,6 +97,9 @@ class AuthUserController extends MainController
         return response()->json($Response, 201);
     }
 
+    /**
+     * @param Request $Request
+     */
     public function login(Request $Request)
     {
         $Credentials = $Request->only([
