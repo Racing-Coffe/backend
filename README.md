@@ -1,6 +1,8 @@
 # Back End
 [![Actions Status](https://github.com/racing-coffe/backend/actions/workflows/ci.yml/badge.svg)](https://github.com/racing-coffe/backend/actions)
 
+> This project is paused. 
+
 The Backend of Racing Coffe
 
 This is a Formula 1 Blog REST API Project. Made with PHP Laravel Framework.
